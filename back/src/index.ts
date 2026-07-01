@@ -23,6 +23,10 @@ app.get("/api/books", (request, response) => {
     ]);
 });
 
+app.post("/api/books", (request, response) => {
+
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
