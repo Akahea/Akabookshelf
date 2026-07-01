@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root,
+[data-theme="sakura"] {
+  --background: #fff8f6;
+  --surface: #ffffff;
+  --surface-secondary: #f8f2f4;
+  --primary: #d98fa2;
+  --primary-hover: #c97a8e;
+  --secondary: #c7b7e6;
+  --accent: #f2c57c;
+  --success: #a7d8b9;
+  --text: #4a4453;
+  --text-muted: #7d7487;
+  --border: #eadde2;
+}
+
+[data-theme="coffee"] {
+  --background: #faf6f1;
+  --surface: #ffffff;
+  --surface-secondary: #f3ebe3;
+  --primary: #a67b5b;
+  --primary-hover: #91684c;
+  --secondary: #d6bfa9;
+  --accent: #e8cfae;
+  --success: #b7c7a3;
+  --text: #463a33;
+  --text-muted: #7a685d;
+  --border: #e6d8ca;
+}
+
+[data-theme="matcha"] {
+  --background: #f8fbf6;
+  --surface: #ffffff;
+  --surface-secondary: #eef6ec;
+  --primary: #9abf88;
+  --primary-hover: #84aa72;
+  --secondary: #b9d6c2;
+  --accent: #f3d9b1;
+  --success: #9fd4b0;
+  --text: #475248;
+  --text-muted: #6f7a70;
+  --border: #dcebd8;
+}
+
+[data-theme="fantasy"] {
+  --background: #f7f4fb;
+  --surface: #ffffff;
+  --surface-secondary: #eee8fa;
+  --primary: #8e8bcb;
+  --primary-hover: #7774b8;
+  --secondary: #d4c7f5;
+  --accent: #f5d28a;
+  --success: #a8d8c5;
+  --text: #3f3d56;
+  --text-muted: #77748d;
+  --border: #dfd7ef;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+}
