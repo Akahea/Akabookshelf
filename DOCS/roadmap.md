@@ -70,10 +70,10 @@ Ce projet me permettra de travailler et d'approfondir :
 
 ### Base de données
 
-- [ ] Installation PostgreSQL
-- [ ] Installation Prisma
-- [ ] Première migration
-- [ ] Modèle Book
+- [x] Installation PostgreSQL
+- [x] Installation Prisma
+- [x] Première migration
+- [x] Modèle Book
 - [ ] Modèle User
 
 ---
