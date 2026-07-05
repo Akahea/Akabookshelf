@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { BookCard } from "./components/BookCard";
+import { BookCard } from "./components/books/BookCard";
+import AddBookModal from "./components/books/AddBookModal";
 import type { Book } from "./types/book";
+import { MyButton } from './components/UI/MyButton'
+
 
 type Theme = "sakura" | "coffee" | "matcha" | "fantasy";
 
@@ -9,6 +12,7 @@ const themes: Theme[] = ["sakura", "coffee", "matcha", "fantasy"];
 function App() {
   const [theme, setTheme] = useState<Theme>("sakura");
   const [books, setBooks] = useState<Book[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -28,7 +32,6 @@ function App() {
     const nextTheme = themes[(currentIndex + 1) % themes.length];
     setTheme(nextTheme);
   }
-  console.log("books =", books);
 
   return (
     <main className="min-h-screen px-8 py-10">
@@ -37,20 +40,14 @@ function App() {
           <div>
             <h1 className="text-4xl font-bold">BookShelf</h1>
             <p className="mt-3" style={{ color: "var(--text-muted)" }}>
-              Ta bibliothèque personnelle pour suivre tes lectures et ta collection..
+              Ta bibliothèque personnelle pour suivre tes lectures et ta collection.
             </p>
           </div>
 
-          <button
-            onClick={handleThemeChange}
-            className="rounded-full px-4 py-2 font-medium shadow-sm transition hover:scale-105"
-            style={{
-              backgroundColor: "var(--primary)",
-              color: "white",
-            }}
-          >
-            Thème : {theme}
-          </button>
+          <MyButton onClick={() => setModalOpen(true)}>Ajout livre</MyButton>
+          <AddBookModal openModal={modalOpen} closeModal={() => setModalOpen(false)}></AddBookModal>
+
+          <MyButton onClick={handleThemeChange}>Thème : {theme}</MyButton>
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
