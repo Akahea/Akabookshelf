@@ -5,12 +5,12 @@ const prisma = new PrismaClient();
 const router = Router();
 
 
-router.get("/api/books", async (request, response) => {
+router.get("/", async (request, response) => {
     const books = await prisma.book.findMany();
     response.json(books)
 });
 
-router.post("/api/books", async (request, response) => {
+router.post("/", async (request, response) => {
     const bookData = request.body;
     if (!bookData.title?.trim()) {
         return response.status(400).json({ error: "Missing title" });
@@ -33,7 +33,7 @@ router.post("/api/books", async (request, response) => {
     response.status(201).json(newbook);
 });
 
-router.delete("/api/books/:id", async (request, response) => {
+router.delete("/:id", async (request, response) => {
     const bookID = request.params.id;
     await prisma.book.delete({
         where: {
@@ -43,7 +43,7 @@ router.delete("/api/books/:id", async (request, response) => {
     response.status(200).json({ message: "Book deleted" });
 });
 
-router.put("/api/books/:id", async (request, response) => {
+router.put("/:id", async (request, response) => {
     const bookID = request.params.id;
     const bookData = request.body;
 
