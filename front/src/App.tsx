@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookCard } from "./components/books/BookCard";
-import AddBookModal from "./components/books/AddBookModal";
+import BookModal  from "./components/books/BookModal";
 import type { Book } from "./types/book";
 import { MyButton } from './components/UI/MyButton'
 
@@ -12,7 +12,16 @@ const themes: Theme[] = ["sakura", "coffee", "matcha", "fantasy"];
 function App() {
   const [theme, setTheme] = useState<Theme>("sakura");
   const [books, setBooks] = useState<Book[]>([]);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalCreateOpen, setmodalCreateOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+
+  function openEditModal(book: Book) {
+    setSelectedBook(book);
+  }
+
+  function closeModal() {
+    setSelectedBook(null);
+  }
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -33,6 +42,12 @@ function App() {
     setTheme(nextTheme);
   }
 
+  async function fetchBooks() {
+    const response = await fetch("http://localhost:3001/api/books");
+    const data = await response.json();
+    setBooks(data);
+  }
+
   return (
     <main className="min-h-screen px-8 py-10">
       <section className="mx-auto max-w-5xl">
@@ -44,15 +59,18 @@ function App() {
             </p>
           </div>
 
-          <MyButton onClick={() => setModalOpen(true)}>Ajout livre</MyButton>
-          <AddBookModal openModal={modalOpen} closeModal={() => setModalOpen(false)}></AddBookModal>
-
+          <MyButton onClick={() => setmodalCreateOpen(true)}>Ajout livre</MyButton>
+          <BookModal mode="create" openModal={modalCreateOpen} closeModal={() => setmodalCreateOpen(false)} onSaved={fetchBooks} onDeleted={fetchBooks}></BookModal>
+          {selectedBook && (
+            <BookModal key={selectedBook.id} mode="edit" openModal={true} closeModal={closeModal} book={selectedBook} onSaved={fetchBooks} onDeleted={fetchBooks}
+            />
+          )}
           <MyButton onClick={handleThemeChange}>Thème : {theme}</MyButton>
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {books.map((book) => (
-            <BookCard key={book.id} book={book} />
+            <BookCard key={book.id} book={book} onEdit={openEditModal}/>
           ))}
         </div>
       </section>

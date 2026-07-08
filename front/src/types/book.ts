@@ -11,5 +11,6 @@ export type Book = {
   rating?: number;
   tags: string[];
   notes?: string;
-  createdAt: string;
+  personalNotes: string;
+  ownedVolumes: string;
 };
